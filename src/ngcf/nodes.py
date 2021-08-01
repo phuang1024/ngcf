@@ -37,6 +37,7 @@ class Node:
     * ``outputs``: List of output sockets.
     * ``name``: Node name which will show up in the GUI.
     * ``category``: Node category.
+    * ``execute()``: What the node will do.
     """
     inputs: Sequence[Socket]
     outputs: Sequence[Socket]
@@ -48,11 +49,20 @@ class Node:
     id_num: int
     computed: bool
 
+    def get(self, name: str) -> Socket:
+        """
+        Get an input value by name.
+        """
+        for inp in self.inputs:
+            if inp.name == name:
+                return inp.value
+        raise ValueError(f"No input socket with name {name}")
+
     def execute(self) -> Tuple[Any, ...]:
         """
         Compute the output values.
         The input values are guarenteed to be set correctly.
-        Access them with ``self.inputs[x].value``
+        Access them by name with ``self.get(name)``
         Return the outputs as a tuple.
         The node tree will handle the rest.
         """

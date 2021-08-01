@@ -22,13 +22,13 @@ __all__ = (
     "available_nodes",
 )
 
-from typing import List
+from typing import List, Type
 from .nodes import Node
 
 _available_nodes = []
 
 
-def register_node(node: Node) -> None:
+def register_node(node: Type[Node]) -> None:
     """
     Add a node.
     """

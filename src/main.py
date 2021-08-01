@@ -18,11 +18,12 @@
 #
 
 import pygame
+import default_nodes
 from constants import *
 pygame.init()
 
 
-def main():
+def gui():
     pygame.display.set_caption("Node-Based General Computing Framework")
     surface = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
 
@@ -35,6 +36,11 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+
+
+def main():
+    default_nodes.register()
+    gui()
 
 
 main()
