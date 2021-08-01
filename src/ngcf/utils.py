@@ -17,6 +17,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from .nodes import *
-from .sockets import *
-from .utils import *
+from .nodes import Node
+
+
+def register_node(node: Node) -> None:
+    """
+    """
