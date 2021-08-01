@@ -17,9 +17,25 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+__all__ = (
+    "register_node",
+    "available_nodes",
+)
+
+from typing import List
 from .nodes import Node
+
+_available_nodes = []
 
 
 def register_node(node: Node) -> None:
     """
+    Add a node.
     """
+    _available_nodes.append(node)
+
+def available_nodes() -> List[Node]:
+    """
+    Returns all available nodes.
+    """
+    return _available_nodes
