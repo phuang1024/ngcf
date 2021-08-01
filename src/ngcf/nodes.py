@@ -22,7 +22,7 @@ __all__ = (
     "NodeTree",
 )
 
-from typing import Any, List, Tuple, Union
+from typing import Any, List, Sequence, Tuple
 from .sockets import Socket
 
 
@@ -30,13 +30,22 @@ class Node:
     """
     Base node class.
     Inherit from this to create your custom node.
-    """
-    inputs: List[Socket]
-    outputs: List[Socket]
 
-    id_num: int
+    Define:
+
+    * ``inputs``: List of input sockets.
+    * ``outputs``: List of output sockets.
+    * ``name``: Node name which will show up in the GUI.
+    * ``category``: Node category.
+    """
+    inputs: Sequence[Socket]
+    outputs: Sequence[Socket]
+
+    name: str
+    category: str
 
     # Updated by node tree and/or GUI
+    id_num: int
     computed: bool
 
     def execute(self) -> Tuple[Any, ...]:
