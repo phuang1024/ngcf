@@ -49,6 +49,13 @@ class Node:
     id_num: int
     computed: bool
 
+    selected: bool
+    loc: List[float]
+
+    def __init__(self):
+        self.selected = False
+        self.loc = [0, 0]
+
     def get(self, name: str) -> Socket:
         """
         Get an input value by name.

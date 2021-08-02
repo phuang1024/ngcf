@@ -25,7 +25,7 @@ __all__ = (
 from typing import List, Type
 from .nodes import Node
 
-_available_nodes = []
+_available_nodes: List[Type[Node]] = []
 
 
 def register_node(node: Type[Node]) -> None:
@@ -41,7 +41,7 @@ def register_node(node: Type[Node]) -> None:
     else:
         raise ValueError(f"Failed to register {name}: Name already exists.")
 
-def available_nodes() -> List[Node]:
+def available_nodes() -> List[Type[Node]]:
     """
     Returns all available nodes.
     """
