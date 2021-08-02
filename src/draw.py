@@ -27,6 +27,8 @@ pygame.init()
 class NodeTreeDraw:
     """Draws a node tree."""
 
+    grid_size = 20
+
     view: List[float]
     zoom: float
     tree: ngcf.NodeTree
@@ -38,6 +40,16 @@ class NodeTreeDraw:
 
     def draw(self, events, size: Tuple[float, float]) -> pygame.Surface:
         surf = pygame.Surface(size)
+        surf.fill((40, 40, 40))
+
+        x = (self.view[0]%self.grid_size) - self.grid_size
+        y = (self.view[1]%self.grid_size) - self.grid_size
+        while (x <= size[0]) or (y <= size[1]):
+            pygame.draw.line(surf, (30, 30, 30), (x, 0), (x, size[1]))
+            pygame.draw.line(surf, (30, 30, 30), (0, y), (size[0], y))
+            x += self.grid_size
+            y += self.grid_size
+
         for node in self.tree.nodes:
             loc = (self.view[0]+node.loc[0], self.view[1]+node.loc[1])
             draw_node(surf, node, (255, 0, 0), loc)
@@ -54,5 +66,8 @@ def draw_node(surface: pygame.Surface, node: ngcf.Node, color: Tuple[int, int, i
     :param color: Node header color.
     :param loc: (X, Y) location on the surface.
     """
-    pygame.draw.rect(surface, (150, 150, 150), (*loc, 150, 200))
+    pygame.draw.rect(surface, (90, 90, 90), (*loc, 150, 200))
     pygame.draw.rect(surface, color, (*loc, 150, 20))
+
+    if node.selected:
+        pygame.draw.rect(surface, (255, 255, 255), (*loc, 150, 200), 1)

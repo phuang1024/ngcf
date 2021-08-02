@@ -17,6 +17,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import os
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "y"
+
 import pygame
 import default_nodes
 from constants import *
