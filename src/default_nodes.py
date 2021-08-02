@@ -27,7 +27,7 @@ class NodeLogicAnd(Node):
         ngcf.SocketBool(name="B"),
     )
     outputs = (
-        ngcf.SocketBool(name="Output")
+        ngcf.SocketBool(name="Output"),
     )
     name = "AND"
     category = "Logic"
@@ -41,7 +41,7 @@ class NodeLogicOr(Node):
         ngcf.SocketBool(name="B"),
     )
     outputs = (
-        ngcf.SocketBool(name="Output")
+        ngcf.SocketBool(name="Output"),
     )
     name = "OR"
     category = "Logic"
@@ -55,7 +55,7 @@ class NodeLogicXor(Node):
         ngcf.SocketBool(name="B"),
     )
     outputs = (
-        ngcf.SocketBool(name="Output")
+        ngcf.SocketBool(name="Output"),
     )
     name = "XOR"
     category = "Logic"
@@ -68,7 +68,7 @@ class NodeLogicNot(Node):
         ngcf.SocketBool(name="A"),
     )
     outputs = (
-        ngcf.SocketBool(name="Output")
+        ngcf.SocketBool(name="Output"),
     )
     name = "NOT"
     category = "Logic"

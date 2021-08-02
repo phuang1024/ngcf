@@ -32,7 +32,14 @@ def register_node(node: Type[Node]) -> None:
     """
     Add a node.
     """
+    import ngcf
+    name = node().__class__.__name__
+
     _available_nodes.append(node)
+    if not hasattr(ngcf, name):
+        setattr(ngcf, name, node)
+    else:
+        raise ValueError(f"Failed to register {name}: Name already exists.")
 
 def available_nodes() -> List[Node]:
     """
