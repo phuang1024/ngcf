@@ -20,6 +20,7 @@
 import pygame
 import default_nodes
 from constants import *
+from wm import WindowManager
 pygame.init()
 
 
@@ -28,6 +29,8 @@ def gui():
     surface = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
 
     clock = pygame.time.Clock()
+    wm = WindowManager()
+
     while True:
         clock.tick(FPS)
         pygame.display.update()
@@ -36,6 +39,8 @@ def gui():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+
+        wm.draw(surface, events)
 
 
 def main():
