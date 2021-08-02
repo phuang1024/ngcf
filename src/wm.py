@@ -51,7 +51,7 @@ class WindowManager:
         self._draw_stack.pop()
         return self._tree_stack.pop()
 
-    def draw(self, surface: pygame.Surface, events) -> None:
+    def draw(self, surface: pygame.Surface) -> None:
         draw = self._draw_stack[-1]
-        surf = draw.draw(events, surface.get_size())
+        surf = draw.draw(surface.get_size())
         surface.blit(surf, (0, 0))

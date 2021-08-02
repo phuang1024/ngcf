@@ -22,6 +22,7 @@ os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "y"
 
 import pygame
 import default_nodes
+import events
 from constants import *
 from wm import WindowManager
 pygame.init()
@@ -34,16 +35,39 @@ def gui():
     clock = pygame.time.Clock()
     wm = WindowManager()
 
+    click_start = [(0, 0)] * 3
+
     while True:
         clock.tick(FPS)
         pygame.display.update()
-        events = pygame.event.get()
-        for event in events:
+
+        pressed = pygame.mouse.get_pressed()
+        events.mouse_down = [False] * 3
+        events.mouse_up = [False] * 3
+        events.mouse_pressed = [pressed[i] for i in (0, 1, 2)]
+        events.mouse_pos = pygame.mouse.get_pos()
+
+        for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                events.mouse_down[event.button-1] = True
+            elif event.type == pygame.MOUSEBUTTONUP:
+                events.mouse_up[event.button-1] = True
 
-        wm.draw(surface, events)
+        for i in range(3):
+            events.mouse_drag[i] = False
+            if events.mouse_down[i]:
+                click_start[i] = events.mouse_pos
+            if events.mouse_pressed[i]:
+                if (abs(events.mouse_pos[0]-click_start[i][0]) >= 3) or (abs(events.mouse_pos[1]-click_start[i][1]) >= 3):
+                    events.mouse_drag[i] = True
+                    events.mouse_drag_start[i] = click_start[i]
+                    events.mouse_drag_end[i] = events.mouse_pos
+
+        wm.draw(surface)
+        print(events.mouse_drag, events.mouse_drag_start, events.mouse_drag_end)
 
 
 def main():

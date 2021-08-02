@@ -38,10 +38,11 @@ class NodeTreeDraw:
         self.zoom = 1
         self.tree = tree
 
-    def draw(self, events, size: Tuple[float, float]) -> pygame.Surface:
+    def draw(self, size: Tuple[float, float]) -> pygame.Surface:
         surf = pygame.Surface(size)
         surf.fill((40, 40, 40))
 
+        # Draw grid
         x = (self.view[0]%self.grid_size) - self.grid_size
         y = (self.view[1]%self.grid_size) - self.grid_size
         while (x <= size[0]) or (y <= size[1]):
