@@ -20,6 +20,7 @@
 import colorsys
 import pygame
 import ngcf
+import events
 from typing import List, Tuple
 pygame.init()
 
@@ -38,8 +39,8 @@ class NodeTreeDraw:
         self.zoom = 1
         self.tree = tree
 
-    def draw(self, size: Tuple[float, float]) -> pygame.Surface:
-        surf = pygame.Surface(size)
+    def draw(self, loc: Tuple[float, float], size: Tuple[float, float]) -> pygame.Surface:
+        surf = pygame.Surface(size, pygame.SRCALPHA)
         surf.fill((40, 40, 40))
 
         # Draw grid
@@ -51,9 +52,22 @@ class NodeTreeDraw:
             x += self.grid_size
             y += self.grid_size
 
+        # Draw nodes
         for node in self.tree.nodes:
             loc = (self.view[0]+node.loc[0], self.view[1]+node.loc[1])
             draw_node(surf, node, (255, 0, 0), loc)
+
+        # Draw selection box
+        if events.mouse_drag[0]:
+            loc1 = [loc[i]+events.mouse_drag_start[0][i] for i in range(2)]
+            loc2 = [loc[i]+events.mouse_drag_end[0][i] for i in range(2)]
+            x, y = min(loc1[0], loc2[0]), min(loc1[1], loc2[1])
+            w, h = abs(loc1[0]-loc2[0]), abs(loc1[1]-loc2[1])
+
+            subsurf = pygame.Surface((w, h), pygame.SRCALPHA)
+            subsurf.fill((255, 255, 255, 25))
+            surf.blit(subsurf, (x, y))
+            pygame.draw.rect(surf, (255, 255, 255), (x, y, w, h), 1)
 
         return surf
 

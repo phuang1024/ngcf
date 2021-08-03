@@ -53,5 +53,5 @@ class WindowManager:
 
     def draw(self, surface: pygame.Surface) -> None:
         draw = self._draw_stack[-1]
-        surf = draw.draw(surface.get_size())
+        surf = draw.draw((0, 0), surface.get_size())
         surface.blit(surf, (0, 0))

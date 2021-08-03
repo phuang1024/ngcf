@@ -66,8 +66,8 @@ def gui():
                     events.mouse_drag_start[i] = click_start[i]
                     events.mouse_drag_end[i] = events.mouse_pos
 
+        surface.fill((0, 0, 0))
         wm.draw(surface)
-        print(events.mouse_drag, events.mouse_drag_start, events.mouse_drag_end)
 
 
 def main():
