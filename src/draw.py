@@ -35,11 +35,18 @@ class NodeTreeDraw:
     tree: ngcf.NodeTree
 
     def __init__(self, tree: ngcf.NodeTree):
+        self._real_view = [0, 0]   # View ignoring during drag.
         self.view = [0, 0]
         self.zoom = 1
         self.tree = tree
 
     def draw(self, loc: Tuple[float, float], size: Tuple[float, float]) -> pygame.Surface:
+        if events.mouse_drag[1]:
+            delta = [events.mouse_drag_end[1][i]-events.mouse_drag_start[1][i] for i in range(2)]
+            self.view = [self._real_view[i]+delta[i] for i in range(2)]
+        if events.mouse_up[1]:
+            self._real_view = self.view
+
         surf = pygame.Surface(size, pygame.SRCALPHA)
         surf.fill((40, 40, 40))
 
